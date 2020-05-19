@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Unique } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Unique, OneToMany } from "typeorm";
+import { Coffee } from "src/coffee/coffee.entity";
 
 @Entity()
 @Unique(['name'])
@@ -29,6 +30,12 @@ export class Shop {
 
   @Column()
   description: string;
+
+  @OneToMany(
+    type => Coffee,
+    coffee => coffee.shop,
+  )
+  coffee: Coffee[];
 
   @CreateDateColumn()
   createdDate: Date;

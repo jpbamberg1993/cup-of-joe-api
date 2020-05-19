@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
+import { Coffee } from "./coffee.entity";
 
 @Entity()
 export class Rating {
@@ -7,6 +8,12 @@ export class Rating {
 
   @Column()
   rating: number;
+
+  @ManyToOne(
+    type => Coffee,
+    coffee => coffee.rating
+  )
+  coffee: Coffee;
 
   @CreateDateColumn()
   createdDate: Date;
