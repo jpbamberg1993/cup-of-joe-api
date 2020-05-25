@@ -7,11 +7,16 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   type: dbConfig.type,
   host: dbConfig.host,
   port: dbConfig.port,
+  database: 'cupofjoe',
   username: dbConfig.username,
   password: dbConfig.password,
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
-  migrations: [__dirname + '/../migration/*.migration.ts'],
+  migrations: [
+    "dist/migration/*.js"
+  ],
   cli: {
-    migrationsDir: "migration"
-  }
+    migrationsDir: "src/migration"
+  },
+  synchronize: false,
+  logging: true
 }

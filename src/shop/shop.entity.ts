@@ -1,12 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Unique, OneToMany } from "typeorm";
+import { Entity, Column, Unique, OneToMany } from "typeorm";
+import { BaseEntity } from "../base.entity"
 import { Coffee } from "src/coffee/coffee.entity";
 
 @Entity()
 @Unique(['name'])
-export class Shop {
-  @PrimaryGeneratedColumn()
-  id: string;
-
+export class Shop extends BaseEntity {
   @Column()
   name: string;
 
@@ -36,10 +34,4 @@ export class Shop {
     coffee => coffee.shop,
   )
   coffee: Coffee[];
-
-  @CreateDateColumn()
-  createdDate: Date;
-
-  @UpdateDateColumn()
-  updatedDate: Date;
 }

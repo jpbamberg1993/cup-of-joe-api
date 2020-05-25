@@ -1,12 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from "typeorm";
+import { Entity, Column, ManyToOne, OneToMany } from "typeorm";
 import { Shop } from '../shop/shop.entity';
 import { Rating } from "./rating.entity";
+import { BaseEntity } from '../base.entity';
 
 @Entity()
-export class Coffee {
-  @PrimaryGeneratedColumn()
-  id: string;
-
+export class Coffee extends BaseEntity {
   @Column()
   name: string;
 
@@ -21,10 +19,4 @@ export class Coffee {
     rating => rating.coffee
   )
   rating: Rating[];
-
-  @CreateDateColumn()
-  createdDate: Date;
-
-  @UpdateDateColumn()
-  updatedDate: Date;
 }

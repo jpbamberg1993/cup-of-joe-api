@@ -1,11 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
+import { Entity, Column, ManyToOne } from "typeorm";
 import { Coffee } from "./coffee.entity";
+import { BaseEntity } from '../base.entity';
 
 @Entity()
-export class Rating {
-  @PrimaryGeneratedColumn()
-  id: string;
-
+export class Rating extends BaseEntity {
   @Column()
   rating: number;
 
@@ -14,10 +12,4 @@ export class Rating {
     coffee => coffee.rating
   )
   coffee: Coffee;
-
-  @CreateDateColumn()
-  createdDate: Date;
-
-  @UpdateDateColumn()
-  updatedDate: Date;
 }
