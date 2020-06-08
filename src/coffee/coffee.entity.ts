@@ -1,10 +1,10 @@
 import { Entity, Column, ManyToOne, OneToMany } from "typeorm";
 import { Shop } from '../shop/shop.entity';
 import { Rating } from "./rating.entity";
-import { BaseEntity } from '../base.entity';
+import { SharedEntity } from '../base.entity';
 
 @Entity()
-export class Coffee extends BaseEntity {
+export class Coffee extends SharedEntity {
   @Column()
   name: string;
 

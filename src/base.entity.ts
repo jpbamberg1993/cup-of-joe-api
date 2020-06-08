@@ -1,6 +1,6 @@
-import { PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm";
 
-export abstract class BaseEntity {
+export abstract class SharedEntity extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
