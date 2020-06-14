@@ -69,7 +69,7 @@ describe('ShopService', () => {
       }
       await shopService.createShop(shop)
       const result = await shopService.getShops()
-      expect(result.length).toEqual(1)
+      expect(result.length).toEqual(2)
     })
   })
 

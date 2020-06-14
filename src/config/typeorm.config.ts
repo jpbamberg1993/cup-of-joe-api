@@ -4,6 +4,7 @@ import * as config from "config";
 const dbConfig = config.get("db");
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
+  name: dbConfig.name,
   type: dbConfig.type,
   host: dbConfig.host,
   port: dbConfig.port,
