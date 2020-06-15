@@ -1,4 +1,3 @@
 db:
+  name: 'development'
   host: 'localhost'
-  username: 'bambam'
-  password: 'testpassword'
