@@ -2,5 +2,3 @@ db:
   name: 'test'
   host: 'localhost'
   database: 'cupofjoetest'
-  username: 'bambam'
-  password: 'testpassword'

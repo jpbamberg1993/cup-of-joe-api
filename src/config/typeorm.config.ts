@@ -9,8 +9,8 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   host: dbConfig.host,
   port: dbConfig.port,
   database: dbConfig.database,
-  username: dbConfig.username,
-  password: dbConfig.password,
+  username: process.env.NODE_ENV === 'development' ? '' : dbConfig.username,
+  password: process.env.NODE_ENV === 'development' ? '' : dbConfig.password,
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   migrations: [
     "dist/migration/*.js"
