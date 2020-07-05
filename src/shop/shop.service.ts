@@ -11,15 +11,12 @@ export class ShopService {
   ) {}
 
   async createShop(createShopDto: CreateShopDto): Promise<Shop> {
-    console.log('createShop called')
-    return this.shopRepository.createShop(createShopDto)
+    const shop = await this.shopRepository.createShop(createShopDto)
+    return shop
   }
 
   async getShops(): Promise<Shop[]> {
-    console.log('getShops called')
     const shops = await this.shopRepository.find()
-    console.log('shops')
-    console.log(shops)
     return shops
   }
 }
