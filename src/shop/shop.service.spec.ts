@@ -40,7 +40,7 @@ function mockShopRepository() {
   return {
     createShop: jest.fn(),
     find: jest.fn(),
-    remove: jest.fn(),
+    delete: jest.fn(),
     findOne: jest.fn()
   }
 }
@@ -59,6 +59,33 @@ describe('ShopService', function() {
     .compile()
     shopService = module.get<ShopService>(ShopService)
     shopRepository = module.get<ShopRepository>(ShopRepository)
+  })
+
+  describe('getShops', function() {
+    it('gets all shops from repository', async function() {
+      shopRepository.find.mockResolvedValue([mockShop, mockShop1])
+      expect(shopRepository.find).not.toHaveBeenCalled()
+      const result = await shopService.getShops()
+      expect(shopRepository.find).toHaveBeenCalled()
+      expect(result.length).toEqual(2)
+    })
+    it('returns empty array if no shops found', async function() {
+      shopRepository.find.mockResolvedValue([])
+      expect(shopRepository.find).not.toHaveBeenCalled()
+      const result = await shopService.getShops()
+      expect(shopRepository.find).toHaveBeenCalled()
+      expect(result.length).toEqual(0)
+    })
+  })
+
+  describe('getShopById', function() {
+    it('calls shopRepository.findOne and succesfully returns the shop', async function() {
+      shopRepository.findOne.mockResolvedValue(mockShop)
+      expect(shopRepository.findOne).not.toHaveBeenCalled()
+      const result = await shopService.getShopById(2)
+      expect(shopRepository.findOne).toHaveBeenCalledWith(2)
+      expect(result).toEqual(mockShop)
+    })
   })
 
   describe('createShop', function() {
@@ -127,33 +154,6 @@ describe('ShopService', function() {
       expect(save).not.toHaveBeenCalled()
       const result = await shopService.updateShop(2, mockUpdatedShopData)
       expect(result.description).toEqual(mockUpdatedShopData.description)
-    })
-  })
-
-  describe('getShops', function() {
-    it('gets all shops from repository', async function() {
-      shopRepository.find.mockResolvedValue([mockShop, mockShop1])
-      expect(shopRepository.find).not.toHaveBeenCalled()
-      const result = await shopService.getShops()
-      expect(shopRepository.find).toHaveBeenCalled()
-      expect(result.length).toEqual(2)
-    })
-    it('returns empty array if no shops found', async function() {
-      shopRepository.find.mockResolvedValue([])
-      expect(shopRepository.find).not.toHaveBeenCalled()
-      const result = await shopService.getShops()
-      expect(shopRepository.find).toHaveBeenCalled()
-      expect(result.length).toEqual(0)
-    })
-  })
-
-  describe('getShopById', function() {
-    it('calls shopRepository.findOne and succesfully returns the shop', async function() {
-      shopRepository.findOne.mockResolvedValue(mockShop)
-      expect(shopRepository.findOne).not.toHaveBeenCalled()
-      const result = await shopService.getShopById(2)
-      expect(shopRepository.findOne).toHaveBeenCalledWith(2)
-      expect(result).toEqual(mockShop)
     })
   })
 })
