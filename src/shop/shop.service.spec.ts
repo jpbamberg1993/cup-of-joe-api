@@ -2,39 +2,7 @@ import { Test } from '@nestjs/testing';
 import { ShopService } from './shop.service';
 import { ShopRepository } from './shop.repository';
 import { NotFoundException } from '@nestjs/common';
-
-const mockShop = {
-  name: 'coffee district',
-  streetOne: '325 ne 2nd ave',
-  streetTwo: '104',
-  city: 'delray beach',
-  state: 'florida',
-  zip: '33444',
-  dateVisited: new Date(),
-  description: `Sorta cool layout, weird painting I can't figure out`,
-}
-
-const mockShop1 = {
-  name: 'yaxche teahouse',
-  streetOne: '14 S Swinton Ave',
-  streetTwo: '',
-  city: 'delray beach',
-  state: 'florida',
-  zip: '33444',
-  dateVisited: new Date(),
-  description: `It's a really cool place with an awesome vibe but the tea is a bit overpriced`,
-}
-
-const mockUpdatedShopData = {
-  name: 'the coffee district',
-  streetOne: '123 bambam st',
-  streetTwo: '222',
-  city: 'boynton beach',
-  state: 'florida',
-  zip: '33444',
-  dateVisited: new Date(),
-  description: `Sorta cool layout, weird painting I can't figure out.`,
-}
+import { mockShop, mockShop1, mockUpdatedShopData } from '../../test/data/shop.data'
 
 function mockShopRepository() {
   return {
@@ -112,14 +80,17 @@ describe('ShopService', function() {
   })
 
   describe('updateShop', function() {
-    it('updates shop name and returns shop', async function() {
+    let save 
+    beforeEach(async function() {
       const shop = mockShop
-      const save = jest.fn().mockResolvedValue(true)
+      save = jest.fn().mockResolvedValue(true)
       shopService.getShopById = jest.fn().mockResolvedValue({
         ...shop,
         save
       })
+    })
 
+    it('updates shop name and returns shop', async function() {
       expect(shopService.getShopById).not.toHaveBeenCalled()
       expect(save).not.toHaveBeenCalled()
       const result = await shopService.updateShop(2, mockUpdatedShopData)
@@ -128,13 +99,6 @@ describe('ShopService', function() {
       expect(result.name).toEqual('the coffee district')
     })
     it('updates shop address and returns shop', async function() {
-      const shop = mockShop
-      const save = jest.fn().mockResolvedValue(true)
-      shopService.getShopById = jest.fn().mockResolvedValue({
-        ...shop,
-        save
-      })
-
       expect(shopService.getShopById).not.toHaveBeenCalled()
       expect(save).not.toHaveBeenCalled()
       const result = await shopService.updateShop(2, mockUpdatedShopData)
@@ -143,13 +107,6 @@ describe('ShopService', function() {
       expect(result.streetOne).toEqual(mockUpdatedShopData.streetOne)
     })
     it('updates description and returns shop', async function() {
-      const shop = mockShop
-      const save = jest.fn().mockResolvedValue(true)
-      shopService.getShopById = jest.fn().mockResolvedValue({
-        ...shop,
-        save
-      })
-
       expect(shopService.getShopById).not.toHaveBeenCalled()
       expect(save).not.toHaveBeenCalled()
       const result = await shopService.updateShop(2, mockUpdatedShopData)
