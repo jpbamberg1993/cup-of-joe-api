@@ -19,8 +19,6 @@ export class ShopService {
 
   async getShopById(id: string): Promise<Shop> {
     const shop = this.shopRepository.findOne(id)
-    this.logger.debug('hey')
-    this.logger.verbose({shop})
     return shop
   }
 

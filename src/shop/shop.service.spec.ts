@@ -2,7 +2,7 @@ import { Test } from '@nestjs/testing';
 import { ShopService } from './shop.service';
 import { ShopRepository } from './shop.repository';
 import { NotFoundException } from '@nestjs/common';
-import { mockShop, mockShop1, mockUpdatedShopData } from '../../test/data/shop.data'
+import { mockShop, mockShop1, mockUpdatedShopData } from '../../sample-data/shop.data'
 
 function mockShopRepository() {
   return {
@@ -50,8 +50,8 @@ describe('ShopService', function() {
     it('calls shopRepository.findOne and succesfully returns the shop', async function() {
       shopRepository.findOne.mockResolvedValue(mockShop)
       expect(shopRepository.findOne).not.toHaveBeenCalled()
-      const result = await shopService.getShopById(2)
-      expect(shopRepository.findOne).toHaveBeenCalledWith(2)
+      const result = await shopService.getShopById('asdfse78787')
+      expect(shopRepository.findOne).toHaveBeenCalledWith('asdfse78787')
       expect(result).toEqual(mockShop)
     })
   })
@@ -70,12 +70,12 @@ describe('ShopService', function() {
     it('calls shopRepository.delete to delete a task', async function() {
       shopRepository.delete.mockResolvedValue({ affected: 1 })
       expect(shopRepository.delete).not.toHaveBeenCalled()
-      await shopService.deleteShop(3)
-      expect(shopRepository.delete).toHaveBeenCalledWith(3)
+      await shopService.deleteShop('asdfse78787')
+      expect(shopRepository.delete).toHaveBeenCalledWith('asdfse78787')
     })
     it('throws an error if shop could not be found', async function() {
       shopRepository.delete.mockResolvedValue({ affected: 0 })
-      expect(shopService.deleteShop(6)).rejects.toThrowError(NotFoundException)
+      expect(shopService.deleteShop('asdfse78787')).rejects.toThrowError(NotFoundException)
     })
   })
 
@@ -93,7 +93,7 @@ describe('ShopService', function() {
     it('updates shop name and returns shop', async function() {
       expect(shopService.getShopById).not.toHaveBeenCalled()
       expect(save).not.toHaveBeenCalled()
-      const result = await shopService.updateShop(2, mockUpdatedShopData)
+      const result = await shopService.updateShop('asdfse78787', mockUpdatedShopData)
       expect(shopService.getShopById).toHaveBeenCalled()
       expect(save).toHaveBeenCalled()
       expect(result.name).toEqual('the coffee district')
@@ -101,7 +101,7 @@ describe('ShopService', function() {
     it('updates shop address and returns shop', async function() {
       expect(shopService.getShopById).not.toHaveBeenCalled()
       expect(save).not.toHaveBeenCalled()
-      const result = await shopService.updateShop(2, mockUpdatedShopData)
+      const result = await shopService.updateShop('asdfse78787', mockUpdatedShopData)
       expect(shopService.getShopById).toHaveBeenCalled()
       expect(save).toHaveBeenCalled()
       expect(result.streetOne).toEqual(mockUpdatedShopData.streetOne)
@@ -109,7 +109,7 @@ describe('ShopService', function() {
     it('updates description and returns shop', async function() {
       expect(shopService.getShopById).not.toHaveBeenCalled()
       expect(save).not.toHaveBeenCalled()
-      const result = await shopService.updateShop(2, mockUpdatedShopData)
+      const result = await shopService.updateShop('asdfse78787', mockUpdatedShopData)
       expect(result.description).toEqual(mockUpdatedShopData.description)
     })
   })
