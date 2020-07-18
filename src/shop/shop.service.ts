@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Logger, Get, Post, Patch, ParseIntPipe, Param, Delete } from '@nestjs/common';
+import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShopRepository } from './shop.repository';
 import { CreateShopDto } from './dto/create-shop.dto';
