@@ -16,5 +16,13 @@ describe('CoffeeService', () => {
     expect(service).toBeDefined();
   });
 
-  it.todo('')
+  it.todo('getAllCoffee')
+
+  it.todo('getCoffeeById')
+
+  it.todo('createCoffee')
+
+  it.todo('deleteCoffee')
+
+  it.todo('updateCoffee')
 });
