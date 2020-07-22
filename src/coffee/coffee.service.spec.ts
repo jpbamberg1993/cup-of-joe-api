@@ -1,19 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CoffeeService } from './coffee.service';
+import { CoffeeRepository } from './coffee.repository';
+
+function mockCoffeeRepository() {
+  return {
+    find: jest.fn()
+  }
+}
 
 describe('CoffeeService', () => {
-  let service: CoffeeService;
+  let coffeeService: CoffeeService;
+  let coffeeRepository
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CoffeeService],
+      providers: [
+        CoffeeService,
+        { provide: CoffeeRepository, useFactory: mockCoffeeRepository }
+      ]
     }).compile();
 
-    service = module.get<CoffeeService>(CoffeeService);
+    coffeeService = module.get<CoffeeService>(CoffeeService);
+    coffeeRepository = module.get<CoffeeRepository>(CoffeeRepository)
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(coffeeService).toBeDefined();
   });
 
   it.todo('getAllCoffee')
