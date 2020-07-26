@@ -2,7 +2,7 @@ import { Test } from '@nestjs/testing';
 import { ShopService } from './shop.service';
 import { ShopRepository } from './shop.repository';
 import { NotFoundException } from '@nestjs/common';
-import { mockShop, mockShop1, mockUpdatedShopData } from '../../sample-data/shop.data'
+import { mockShop, mockShop1, mockUpdatedShopData } from '../../test-data/shop.data'
 
 function mockShopRepository() {
   return {
