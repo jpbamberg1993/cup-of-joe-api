@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { CoffeeRepository } from './coffee.repository'
 import { Coffee } from './coffee.entity'
-import { CreateCoffeeDto } from './dto/create-coffee.dto'
+import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { ShopRepository } from '../shop/shop.repository'
 
 @Injectable()
@@ -33,5 +33,22 @@ export class CoffeeService {
   async createCoffee(createCoffeeDto: CreateCoffeeDto, shopId: string): Promise<Coffee> {
     const shop = await this.shopRepository.findOne(shopId)
     return this.coffeeRepository.createCoffee(createCoffeeDto, shop)
+  }
+
+  async deleteCoffee(id: string): Promise<void> {
+    const result = await this.coffeeRepository.delete(id)
+    if (result.affected === 0) {
+      throw new NotFoundException(`Task with Id='${id}' no found.`)
+    }
+  }
+
+  async updateCoffee(id: string, updateCoffeeDto: CreateCoffeeDto): Promise<Coffee> {
+    const coffee = await this.getCoffeeById(id)
+    coffee.name = updateCoffeeDto.name
+    coffee.description = updateCoffeeDto.description
+    coffee.origin = updateCoffeeDto.origin
+    coffee.type = updateCoffeeDto.type
+    await coffee.save()
+    return coffee
   }
 }

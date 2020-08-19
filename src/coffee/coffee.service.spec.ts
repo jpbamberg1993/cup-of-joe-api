@@ -11,6 +11,7 @@ function mockCoffeeRepository() {
     find: jest.fn(),
     findOne: jest.fn(),
     createCoffee: jest.fn(),
+    delete: jest.fn(),
   }
 }
 
@@ -81,40 +82,41 @@ describe('CoffeeService', () => {
     })
   })
 
-  // describe('deleteCoffee', () => {
-  //   it('calls coffeeRepository.deleteCoffee to delete a coffee belonging to a shop', async () => {
-  //     coffeeRepository.delete.mockResolvedValue({ affected: 1 })
-  //     expect(coffeeRepository.delete).not.toHaveBeenCalled()
-  //     await coffeeService.delete({ coffeeId: 22, shopId: 44 })
-  //     expect(coffeeRepository.delete).toHaveBeenCalledWith({ id: 22, shopId: 44 })
-  //   })
-  //   it('throws and error if coffee could not be found', async () => {
-  //     coffeeRepository.delete.mockResolvedValue({ affected: 0 })
-  //     expect(coffeeService.delete({ coffeeId: 99, shopId: 44 })).rejects.toThrowError(NotFoundException)
-  //   })
-  // })
+  describe('deleteCoffee', () => {
+    it('calls coffeeRepository.delete to delete a coffee belonging to a shop', async () => {
+      coffeeRepository.delete.mockResolvedValue({ affected: 1 })
+      expect(coffeeRepository.delete).not.toHaveBeenCalled()
+      await coffeeService.deleteCoffee('asdfasdfds-78787')
+      expect(coffeeRepository.delete).toHaveBeenCalledWith('asdfasdfds-78787')
+    })
+    it('throws and error if coffee could not be found', async () => {
+      coffeeRepository.delete.mockResolvedValue({ affected: 0 })
+      expect(coffeeService.deleteCoffee('asdfasdfds-78787')).rejects.toThrowError(NotFoundException)
+    })
+  })
 
-  // describe('updateCoffee', () => {
-  //   it('updates coffee and returns coffee', async () => {
-  //     const updatedCoffeeDto = {
-  //       name: 'cappuccino',
-  //       description: 'Espresso with airated milk.',
-  //       origin: 'Costa Rica',
-  //       type: 'cappuccino',
-  //     }
-  //     const coffee = mockCoffee
-  //     const save = jest.fn().mockResolvedValue(true)
-  //     coffeeService.getCoffeeById = jest.fn().mockResolvedValue({
-  //       ...coffee,
-  //       save,
-  //     })
+  describe('updateCoffee', () => {
+    it('updates coffee and returns coffee', async () => {
+      const updatedCoffeeDto = {
+        name: 'cappuccino',
+        description: 'Espresso with airated milk.',
+        origin: 'Costa Rica',
+        type: 'cappuccino',
+      }
+      const coffee = mockCoffee
+      const save = jest.fn().mockResolvedValue(true)
+      coffeeService.getCoffeeById = jest.fn().mockResolvedValue({
+        ...coffee,
+        save,
+      })
 
-  //     expect(coffeeService.getCoffeeById).not.toHaveBeenCalled()
-  //     expect(save).not.toHaveBeenCalled()
-  //     const result = await coffeeService.updateCoffee({ coffeeId: 22, coffeeDto: mockCoffee, shopId: 44 })
-  //     expect(coffeeService.getCoffeeById).toHaveBeenCalled()
-  //     expect(save).toHaveBeenCalled()
-  //     expect(result).toEqual(coffee)
-  //   })
-  // })
+      expect(coffeeService.getCoffeeById).not.toHaveBeenCalled()
+      expect(save).not.toHaveBeenCalled()
+      const result = await coffeeService.updateCoffee('asdfasdfds-78787', updatedCoffeeDto)
+      expect(coffeeService.getCoffeeById).toHaveBeenCalled()
+      expect(save).toHaveBeenCalled()
+      delete result.save
+      expect(result).toEqual(updatedCoffeeDto)
+    })
+  })
 })
