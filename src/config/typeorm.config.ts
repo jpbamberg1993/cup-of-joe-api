@@ -13,7 +13,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: process.env.NODE_ENV === 'development' ? '' : dbConfig.password,
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   migrations: [
-    "dist/migration/*.js"
+    "dist/src/migration/*.js"
   ],
   cli: {
     migrationsDir: "src/migration"

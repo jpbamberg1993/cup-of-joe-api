@@ -47,6 +47,23 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Migrations
+
+Anything in src/ with `.entity.ts` will be run in migrations.
+
+To create migrations:
+```
+npm run typeorm:migration:generate AddCoffeeAndRatingColumns
+```
+
+To run migrations (you will need to do this when you first clone the repo):
+```
+npm run build
+npm run typeorm:migration:run
+```
+* I have to run `npm run build` to get the migrations to compile to js in the dist directory.
+From there typeorm can pick them up and run them.
+
 ## Test
 
 ```bash
@@ -59,6 +76,10 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Todo
+
+- Handle unique name error.
 
 ## Support
 

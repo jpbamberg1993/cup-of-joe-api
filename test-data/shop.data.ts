@@ -1,4 +1,5 @@
 const mockShop = {
+  id: 44,
   name: 'coffee district',
   streetOne: '325 ne 2nd ave',
   streetTwo: '104',
